@@ -1,0 +1,28 @@
+---
+-  name: install software
+   hosts: oscar
+   #remote_user: oscar
+   become: yes
+   #become_method: sudo
+   vars:
+      packages:
+         -  name: nmap
+            required: false
+         -  name: httpd
+            required: true
+
+   tasks:
+      -  name: Installation going for "{{ item.name }}"
+         yum:
+            name: "{{ item.name }}"
+            state: present
+         when: item.required == true
+         loop: "{{ packages }}"
+
+      -  name: check httpd service stated or not
+         command: systemctl start httpd
+         register: result
+      
+      -  name: HTTPD status
+         lineinfile: path=/home/oscar/check.txt line='servcie ok'
+         when: result.stdout.find('active')== -1

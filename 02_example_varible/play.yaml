@@ -1,0 +1,13 @@
+-
+ name: Update resolve
+ hosts: oscar
+ vars:
+         dns_ip: 10.0.0.1
+ tasks:
+
+   -  name: 'Update resolve.conf file with one entry'
+      lineinfile: path=~/resolve.conf line='nameserver {{ dns_ip }}'
+
+   -  name: 'Add another DNS address from inventory file'
+      lineinfile: path=~/resolve.conf line='nameserver {{ dns_address }}'
+   

@@ -1,0 +1,12 @@
+---
+-  name: User add
+   hosts: oscar
+   become: yes
+   tasks:
+      -  name: Add User
+         user: name='{{ item.name }}' uid='{{ item.uuid }}' state=present
+         with_items:
+            -  name: bnm
+               uuid: 1020
+            -  name: ceder
+               uuid: 1021

@@ -1,0 +1,23 @@
+---
+-  name: Install Httpd is OS type is redhat or centos
+   hosts: oscar
+   become: yes
+   tasks:
+      -  name: Check, is httpd installed?
+         shell: httpd -v 2>&1
+         register: currentVersion
+         ignore_errors: yes
+      
+      -  name: Register httpd service status
+         shell: systemctl status httpd 2>&1
+         register: httpdStatus
+         ignore_errors: yes
+
+      -  name: Installing httpd if redhat
+         yum: name=httpd state=present
+         when: ansible_os_family == "RedHat" or ansible_os_family == "CentOS" and ('"Apache" not in currentVersion.stdout')
+
+      -  name: Start httpd service
+         service: name=httpd state=started
+         when: '"running" not in httpdStatus.stdout'
+

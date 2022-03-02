@@ -1,0 +1,14 @@
+---
+-  name: Setup module checkes
+   hosts: oscar
+   become_user: yes
+   tasks:
+      -  name: Print OS version
+         debug:
+            var: ansible_os_family
+      
+      -  name: Hostname
+         debug: var=ansible_hostname
+      
+      -  name: Debug message
+         debug: msg="{{ ansible_os_family }}" 

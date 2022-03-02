@@ -1,0 +1,7 @@
+localhost
+
+oscar ansible_host=54.89.163.226 ansible_user=oscar dns_address=192.168.0.1 
+
+[self]
+54.89.163.226 
+

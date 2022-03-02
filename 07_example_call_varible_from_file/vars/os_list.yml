@@ -1,0 +1,4 @@
+os_name: Feenixdv
+web_package:
+   -  httpd
+   -  nmap

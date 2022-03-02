@@ -1,0 +1,13 @@
+---
+-  name: Calling varible from "var/os_list.yml"
+   hosts: oscar
+   become: yes
+   vars_files:
+      -  "vars/os_list.yml"
+   tasks:
+      -  name: Print varible using debug-var
+         debug: var="{{ os_name }}"
+
+      -  name: print value using msg
+         debug: msg={{ os_name }}
+

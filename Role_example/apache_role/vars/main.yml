@@ -1,0 +1,3 @@
+---
+log_path: "/var/log/httpd/"
+port_no: 8080

@@ -1,0 +1,13 @@
+---
+-  name: Apache pachage installation
+   yum: name=httpd state=present
+
+-  name: Apache service checks and start
+   systemd: name=httpd state=started enabled=yes
+
+-  name: update custmize httpd.conf file
+   template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+   notify: restart httpd
+
+-  name: create log path
+   file: path={{log_path}}/httpd.log state=touch owner=apache group=apache mode=0755

@@ -1,0 +1,8 @@
+---
+-  name: Apache deployment
+   hosts: oscar
+   remote_user: oscar
+   become: yes
+
+   roles:
+    - apache_role

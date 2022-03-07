@@ -1,0 +1,12 @@
+---
+-  name: Testing delegate using server reboot
+   hosts: oscar
+   remote_user: oscar
+   become: yes
+   tasks:
+      -  name: URL test on localhost
+         uri: url=http://{{item}}
+         delegate_to: localhost 
+         with_items:
+            - google.com
+            - feenixdv.com

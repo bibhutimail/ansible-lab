@@ -1,0 +1,14 @@
+---
+-  name: Testing delegate using server reboot
+   hosts: oscar
+   remote_user: oscar
+   become: yes
+   tasks:
+      -  name: Wait for server to restart
+         reboot: reboot_timeout=3600
+
+      -  name: Check uptime value
+         shell: uptime
+         register: uptime_value
+      
+      -  debug: var=uptime_value.stdout

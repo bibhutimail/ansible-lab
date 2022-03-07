@@ -1,0 +1,23 @@
+---
+-  name: Testing delegate using server reboot
+   hosts: oscar
+   remote_user: oscar
+   become: yes
+   tasks:
+      -  name: restart server
+         shell: sleep 2 && shutdown -r now "Getting paching"
+         async: 1
+         poll: 0
+         ignore_errors: true
+
+      -  name: Wating for server reboot
+         wait_for: host={{inventory_hostname}} state=started delay=30 timeout=300
+         become: no
+         delegate_to: localhost
+
+-  name: Testing deletate facts
+   hosts: oscar
+   become: yes
+   tasks:
+      -  name: Gather local facts
+         setup: delegate_to=127.0.0.1 delegate_facts=true

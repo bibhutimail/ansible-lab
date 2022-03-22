@@ -1,0 +1,12 @@
+---
+-  name: Git clone
+   hosts: oscar
+   become: yes
+   remote_user: oscar
+   vars_files:
+      - secrets.yml
+   tasks:
+      -  name: Git clone repo
+         git:
+            repo: 'https://{{gituser}}:{{gitpass}}@github.com/zealvora/terraform-beginner-to-advanced-resource.git'
+            dest: /home/oscar/new_project

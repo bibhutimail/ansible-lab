@@ -1,0 +1,25 @@
+---
+-  name: Create archive of log file with find command
+   hosts: oscar
+   become: yes
+   remote_user: oscar
+   tasks:
+      -  name: Create archive of log files with find command
+         find:
+            paths: 
+              - /var/log
+            file_type: file
+            patterns:
+               - '.*\.log'
+               - '.*\.conf'
+            use_regex: yes
+            age: 1d
+            age_stamp: mtime
+         register: output
+      
+      -  name: Create archive
+         archive:
+            path: "{{ item.path }}"
+            dest: "{{item.path}}-{{ansible_date_time.date.replace('-','')}}.bz2"
+            format: bz2
+         with_items: "{{ output.files }}"

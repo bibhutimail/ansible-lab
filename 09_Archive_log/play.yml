@@ -1,0 +1,13 @@
+---
+-  name: Create archive of log file
+   hosts: oscar
+   become: yes
+   remote_user: oscar
+   tasks:
+      -  name: Create archive of log files
+         archive:
+            path:
+               - /var/log/httpd/*.log
+               - /var/log/httpd/*
+            dest: /home/oscar/log.tar
+            format: tar
